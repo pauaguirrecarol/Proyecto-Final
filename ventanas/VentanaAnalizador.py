@@ -15,7 +15,7 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
 import import_ipynb
-#from funciones.GraficarOriginal import GraficarOriginal
+from funciones.Graficar import GraficarOriginal
 
 #Creating the class for the analizer window
 class VentanaAnalizador(MDApp):
