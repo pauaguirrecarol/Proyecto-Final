@@ -15,7 +15,7 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
 import import_ipynb
-from funciones.GraficarOriginal import GraficarOriginal
+#from funciones.GraficarOriginal import GraficarOriginal
 
 #Creating the class for the analizer window
 class VentanaAnalizador(MDApp):
@@ -81,8 +81,8 @@ class VentanaAnalizador(MDApp):
 
     def mostrarSenalOriginal(self, obj):
         toast("Señal Original")
-        GraficarOriginal(self.senal)
-        self.senal.source = 'imagenes/senal.jpg'
+        #GraficarOriginal(self.senal)
+        #self.senal.source = 'imagenes/senal.jpg'
 
 
 
@@ -99,5 +99,5 @@ class VentanaAnalizador(MDApp):
 
 
 if __name__ == "__main__":
-    VentanaAnalizador('/Users/paulaaguirrecarol/Desktop/PDSB 1/Pres_data.txt').run()
+    VentanaAnalizador().run()
 
