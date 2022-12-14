@@ -109,7 +109,7 @@ class VentanaIngreso(MDApp):
         layout.add_widget(self.textosenal)
 
         #Creating a button
-        button = Button(text="Salir", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release=self.salir)
+        button = Button(text="Atrás", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release=self.salir)
         #Adding the button to the GridLayout
         layout.add_widget(button)
         #Creating a button
@@ -186,6 +186,7 @@ class VentanaIngreso(MDApp):
         return True
 
     def salir(self, *args):
+        self.stop()
         print("Salir")
     
     def guardar(self, *args):

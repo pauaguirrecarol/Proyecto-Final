@@ -15,17 +15,8 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
-import sys
-sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
-from funciones.Graficar import *
 
-#--------------------------------------------
-from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem
-from kivymd.uix.menu import MDDropdownMenu
-from kivy.properties import StringProperty
-#--------------------------------------------
-
-
+#from funciones.Graficar import *
 #Creating the class for the analizer window
 class VentanaAnalizador(MDApp):
     def __init__(self, nombre, senal, **kwargs):
