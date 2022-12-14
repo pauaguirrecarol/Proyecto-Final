@@ -1,6 +1,7 @@
 #Imports for creating insert window
 from kivy.uix.textinput import TextInput
 from kivymd.app import MDApp
+from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
@@ -17,6 +18,14 @@ from kivy.uix.image import Image
 import sys
 sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
 from funciones.Graficar import *
+
+#--------------------------------------------
+from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem
+from kivymd.uix.menu import MDDropdownMenu
+from kivy.properties import StringProperty
+#--------------------------------------------
+
+
 #Creating the class for the analizer window
 class VentanaAnalizador(MDApp):
     def __init__(self, nombre, senal, **kwargs):
@@ -28,9 +37,11 @@ class VentanaAnalizador(MDApp):
         super().__init__(**kwargs)
     def build(self, *args):
 
-        screen = Screen()
+        self.screen = Screen()
         self.theme_cls.primary_palette = "Gray"
         self.theme_cls.theme_style = "Light"
+
+        self.menu = MDDropdownMenu()
 
         #Creating BoxLayout
         box = BoxLayout(orientation='vertical')
@@ -69,8 +80,9 @@ class VentanaAnalizador(MDApp):
         layout2.add_widget(button)
         button = Button(text="Espectro", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.mostrarEspectro)
         layout2.add_widget(button)
-        button = Button(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.eliminartendencias)
-        layout2.add_widget(button)
+        #button = Button(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.eliminartendencias, id = 'eliminar')
+        self.buttonEliminar = MDFlatButton(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, id = 'eliminar', on_release = self.menu.open())
+        layout2.add_widget(self.buttonEliminar)
         button = Button(text="FPB", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FPB)
         layout2.add_widget(button)
         button = Button(text="Filtro FIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FIR)
@@ -79,15 +91,33 @@ class VentanaAnalizador(MDApp):
         layout2.add_widget(button)
 
         box.add_widget(layout2)
-        screen.add_widget(box)
+        self.screen.add_widget(box)
 
-        return screen
+        #-Menu desplegable--------------------------------
+        menu_items = [
+            {
+                "text": f"Item {i}",
+                "right_text": f"R+{i}",
+                "right_icon": "apple-keyboard-command",
+                "left_icon": "git",
+                "viewclass": "Item",
+                "height": dp(54),
+                "on_release": lambda x=f"Item {i}": self.menu_callback(x),
+            } for i in range(5)
+        ]
+        self.menu = MDDropdownMenu(
+            caller=self.ids.buttonEliminar,
+            items=menu_items,
+            width_mult=4,
+        )
+
+
+        return self.screen
 
     def mostrarSenalOriginal(self, obj):
         toast("Señal Original")
         #GraficarOriginal(self.senal)
         #self.image.source = 'imagenes/senal.jpg'
-
 
 
     def mostrarEspectro(self, obj):
@@ -100,6 +130,27 @@ class VentanaAnalizador(MDApp):
         toast("Filtro FIR")
     def IIR(self, obj):
         toast("Filtro IIR")
+
+
+    #--------------------------------------------
+    def menu_callback(self, text_item):
+        toast(text_item)
+    #--------------------------------------------
+
+
+#---------------------------Listas desplegables--------------------------------
+class RightContentCls(IRightBodyTouch, MDBoxLayout):
+    icon = StringProperty()
+    text = StringProperty()
+
+
+class Item(OneLineAvatarIconListItem):
+    left_icon = StringProperty()
+    right_icon = StringProperty()
+    right_text = StringProperty()
+
+
+
 
 
 if __name__ == "__main__":

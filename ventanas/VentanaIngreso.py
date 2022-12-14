@@ -1,5 +1,6 @@
 #Imports for creating insert window
 from kivy.uix.textinput import TextInput
+from kivymd.uix.pickers import MDDatePicker, MDTimePicker
 from kivymd.app import MDApp
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
@@ -9,7 +10,6 @@ from kivy.metrics import dp
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.dialog import MDDialog
-#from kivymd.uix.picker import MDDatePicker
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
@@ -27,7 +27,7 @@ class VentanaIngreso(MDApp):
         #Creating BoxLayout
         box = BoxLayout(orientation='vertical')
         #Creating Title Label
-        title = Label(text="Ingresar datos del paciente", font_size=100, pos_hint={'center_x': 0.5, 'center_y': 0.99}, color = 'black',bold = True)
+        title = Label(text="Ingresar datos del paciente", font_size=100, pos_hint={'center_x': 0.5, 'center_y': 0.99}, color = 'black',bold = True, size_hint=(1, .5))
 
 
         #Creating a GridLayout
@@ -78,19 +78,20 @@ class VentanaIngreso(MDApp):
         #Adding the text input to the GridLayout
         layout.add_widget(text_input5)
 
-                
+        #-------------------------                
         #Creating a label
-        #label6 = Label(text="Fecha de ingreso:", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, color = 'black')
+        label6 = Button(text="Seleccionar", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, color = 'black',on_press=self.show_date_picker)
         #Adding the label to the GridLayout
-        #layout.add_widget(label6)
+        layout.add_widget(label6)
         #Creating a text input
-        #text_input6 = TextInput(multiline=False, font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, disabled=True)
+        self.textofecha = TextInput(multiline=False, font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, disabled=True)
         #Adding the text input to the GridLayout
-        #layout.add_widget(text_input6)
+        layout.add_widget(self.textofecha)
         #Creating a button
         #button = Button(text="Seleccionar", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the button to the GridLayout
         #layout.add_widget(button)
+        #-------------------------
 
         #Creating a file chooser
         self.file_manager  = MDFileManager(
@@ -140,16 +141,16 @@ class VentanaIngreso(MDApp):
         :param date_range: list of 'datetime.date' objects in the selected range;
         :type date_range: <class 'list'>;
         '''
-        self.fecha = value
+        self.textofecha.text = str(value).format("%d/%m/%Y")
         print(instance, value, date_range)
 
     def on_cancel(self, instance, value):
         '''Events called when the "CANCEL" dialog box button is clicked.'''
 
-#    def show_date_picker(self, *args):
-#        date_dialog = MDDatePicker()
-#        date_dialog.bind(on_save=self.on_save, on_cancel=self.on_cancel)
-#        date_dialog.open()
+    def show_date_picker(self, *args):
+       date_dialog = MDDatePicker()
+       date_dialog.bind(on_save=self.on_save, on_cancel=self.on_cancel)
+       date_dialog.open()
 
     def file_manager_open(self, *args):
         self.file_manager.show(os.path.expanduser("~"))  # output manager to the screen
