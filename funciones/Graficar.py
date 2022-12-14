@@ -16,7 +16,7 @@ def GraficarOriginal (nombreArchivo):
     plt.xlabel ( 'Muestras' )
     plt.ylabel ( 'Amplitud' )
     plt.grid ()
-    plt.savefig('imagenes/senalGenerada.jpg', dpi=600, bbox_inches='tight')
+    plt.savefig('../imagenes/senalGenerada.jpg', dpi=600, bbox_inches='tight')
     plt.show ()
 
     

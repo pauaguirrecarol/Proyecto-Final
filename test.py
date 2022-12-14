@@ -1,74 +1,88 @@
-import os
-
-from kivy.core.window import Window
 from kivy.lang import Builder
+from kivy.metrics import dp
+from kivy.properties import StringProperty
 
 from kivymd.app import MDApp
-from kivymd.uix.filemanager import MDFileManager
-from kivymd.toast import toast
-
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem
+from kivymd.uix.menu import MDDropdownMenu
 
 KV = '''
-MDBoxLayout:
-    orientation: "vertical"
+<RightContentCls>
+    disabled: True
+    adaptive_size: True
+    pos_hint: {"center_y": .5}
 
-    MDTopAppBar:
-        title: "MDFileManager"
-        left_action_items: [["menu", lambda x: None]]
-        elevation: 3
+    MDIconButton:
+        icon: root.icon
+        user_font_size: "16sp"
+        md_bg_color_disabled: 0, 0, 0, 0
 
-    MDFloatLayout:
+    MDLabel:
+        text: root.text
+        font_style: "Caption"
+        adaptive_size: True
+        pos_hint: {"center_y": .5}
 
-        MDRoundFlatIconButton:
-            text: "Open manager"
-            icon: "folder"
-            pos_hint: {"center_x": .5, "center_y": .5}
-            on_release: app.file_manager_open()
+
+<Item>
+
+    IconLeftWidget:
+        icon: root.left_icon
+
+    RightContentCls:
+        id: container
+        icon: root.right_icon
+        text: root.right_text
+
+
+MDScreen:
+
+    MDRaisedButton:
+        id: button
+        text: "PRESS ME"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        on_release: app.menu.open()
 '''
 
 
-class Example(MDApp):
+class RightContentCls(IRightBodyTouch, MDBoxLayout):
+    icon = StringProperty()
+    text = StringProperty()
+
+
+class Item(OneLineAvatarIconListItem):
+    left_icon = StringProperty()
+    right_icon = StringProperty()
+    right_text = StringProperty()
+
+
+class Test(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Window.bind(on_keyboard=self.events)
-        self.manager_open = False
-        self.file_manager = MDFileManager(
-            exit_manager=self.exit_manager, select_path=self.select_path
+        self.screen = Builder.load_string(KV)
+        menu_items = [
+            {
+                "text": f"Item {i}",
+                "right_text": f"R+{i}",
+                "right_icon": "apple-keyboard-command",
+                "left_icon": "git",
+                "viewclass": "Item",
+                "height": dp(54),
+                "on_release": lambda x=f"Item {i}": self.menu_callback(x),
+            } for i in range(5)
+        ]
+        self.menu = MDDropdownMenu(
+            caller=self.screen.ids.button,
+            items=menu_items,
+            width_mult=4,
         )
 
+    def menu_callback(self, text_item):
+        print(text_item)
+
     def build(self):
-        self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Gray"
-        return Builder.load_string(KV)
-
-    def file_manager_open(self):
-        self.file_manager.show(os.path.expanduser("~"))  # output manager to the screen
-        self.manager_open = True
-
-    def select_path(self, path: str):
-        '''
-        It will be called when you click on the file name
-        or the catalog selection button.
-
-        :param path: path to the selected directory or file;
-        '''
-
-        self.exit_manager()
-        toast(path)
-
-    def exit_manager(self, *args):
-        '''Called when the user reaches the root of the directory tree.'''
-
-        self.manager_open = False
-        self.file_manager.close()
-
-    def events(self, instance, keyboard, keycode, text, modifiers):
-        '''Called when buttons are pressed on the mobile device.'''
-
-        if keyboard in (1001, 27):
-            if self.manager_open:
-                self.file_manager.back()
-        return True
+        return self.screen
 
 
-Example().run()
+Test().run()
