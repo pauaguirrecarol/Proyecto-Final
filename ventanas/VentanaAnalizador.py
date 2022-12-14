@@ -25,6 +25,8 @@ class VentanaAnalizador(MDApp):
         self.nombre = nombre
         super().__init__(**kwargs)
     def build(self, *args):
+        super().__init__(**kwargs)
+    def build(self, *args):
 
         screen = Screen()
         self.theme_cls.primary_palette = "Gray"

@@ -13,6 +13,7 @@ from kivy.uix.image import Image
 from kivy.uix.gridlayout import GridLayout
 from kivy.metrics import dp
 
+
 #creating the class for the main window
 class VentanaPrincipal(MDApp):
     def build(self):
@@ -56,6 +57,7 @@ class VentanaPrincipal(MDApp):
 
     def iniciar(self,obj):
         print("Iniciar")
+
 
 if __name__ == '__main__':
     VentanaPrincipal().run()
