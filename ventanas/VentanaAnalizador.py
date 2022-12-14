@@ -16,6 +16,8 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
 
+
+
 #from funciones.Graficar import *
 #Creating the class for the analizer window
 class VentanaAnalizador(MDApp):
@@ -24,15 +26,14 @@ class VentanaAnalizador(MDApp):
         self.senal = senal
         self.nombre = nombre
         super().__init__(**kwargs)
-    def build(self, *args):
-        super().__init__(**kwargs)
+   
     def build(self, *args):
 
         self.screen = Screen()
         self.theme_cls.primary_palette = "Gray"
         self.theme_cls.theme_style = "Light"
 
-        self.menu = MDDropdownMenu()
+        #self.menu = MDDropdownMenu()
 
         #Creating BoxLayout
         box = BoxLayout(orientation='vertical')
@@ -71,9 +72,9 @@ class VentanaAnalizador(MDApp):
         layout2.add_widget(button)
         button = Button(text="Espectro", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.mostrarEspectro)
         layout2.add_widget(button)
-        #button = Button(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.eliminartendencias, id = 'eliminar')
-        self.buttonEliminar = MDFlatButton(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, id = 'eliminar', on_release = self.menu.open())
-        layout2.add_widget(self.buttonEliminar)
+        button = Button(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.eliminartendencias)
+        #self.buttonEliminar = MDFlatButton(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, id = 'eliminar', on_release = self.menu.open())
+        layout2.add_widget(button)
         button = Button(text="FPB", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FPB)
         layout2.add_widget(button)
         button = Button(text="Filtro FIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FIR)
@@ -85,22 +86,22 @@ class VentanaAnalizador(MDApp):
         self.screen.add_widget(box)
 
         #-Menu desplegable--------------------------------
-        menu_items = [
-            {
-                "text": f"Item {i}",
-                "right_text": f"R+{i}",
-                "right_icon": "apple-keyboard-command",
-                "left_icon": "git",
-                "viewclass": "Item",
-                "height": dp(54),
-                "on_release": lambda x=f"Item {i}": self.menu_callback(x),
-            } for i in range(5)
-        ]
-        self.menu = MDDropdownMenu(
-            caller=self.ids.buttonEliminar,
-            items=menu_items,
-            width_mult=4,
-        )
+        # menu_items = [
+        #     {
+        #         "text": f"Item {i}",
+        #         "right_text": f"R+{i}",
+        #         "right_icon": "apple-keyboard-command",
+        #         "left_icon": "git",
+        #         "viewclass": "Item",
+        #         "height": dp(54),
+        #         "on_release": lambda x=f"Item {i}": self.menu_callback(x),
+        #     } for i in range(5)
+        # ]
+        # self.menu = MDDropdownMenu(
+        #     caller=self.ids.buttonEliminar,
+        #     items=menu_items,
+        #     width_mult=4,
+        # )
 
 
         return self.screen
@@ -124,21 +125,21 @@ class VentanaAnalizador(MDApp):
 
 
     #--------------------------------------------
-    def menu_callback(self, text_item):
-        toast(text_item)
+    #def menu_callback(self, text_item):
+    #    toast(text_item)
     #--------------------------------------------
 
 
 #---------------------------Listas desplegables--------------------------------
-class RightContentCls(IRightBodyTouch, MDBoxLayout):
-    icon = StringProperty()
-    text = StringProperty()
+# class RightContentCls(IRightBodyTouch, MDBoxLayout):
+#     icon = StringProperty()
+#     text = StringProperty()
 
 
-class Item(OneLineAvatarIconListItem):
-    left_icon = StringProperty()
-    right_icon = StringProperty()
-    right_text = StringProperty()
+# class Item(OneLineAvatarIconListItem):
+#     left_icon = StringProperty()
+#     right_icon = StringProperty()
+#     right_text = StringProperty()
 
 
 

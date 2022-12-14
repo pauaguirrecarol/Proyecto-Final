@@ -15,6 +15,9 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
 import os
+import sys
+sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
+from ventanas.VentanaAnalizador import VentanaAnalizador
 
 #creating the class for the insert window
 class VentanaIngreso(MDApp):
@@ -80,7 +83,7 @@ class VentanaIngreso(MDApp):
 
         #-------------------------                
         #Creating a label
-        label6 = Button(text="Seleccionar", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, color = 'black',on_press=self.show_date_picker)
+        label6 = Button(text="Seleccionar", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5},on_press=self.show_date_picker)
         #Adding the label to the GridLayout
         layout.add_widget(label6)
         #Creating a text input
@@ -190,6 +193,8 @@ class VentanaIngreso(MDApp):
         print("Salir")
     
     def guardar(self, *args):
+        self.stop()
+        VentanaAnalizador("test","test").run()
         print("Guardar")
 
 
