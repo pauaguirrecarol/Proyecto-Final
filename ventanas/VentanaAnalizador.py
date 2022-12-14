@@ -14,15 +14,18 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
-import import_ipynb
-from funciones.Graficar import GraficarOriginal
+#import sys
+#sys.path.append('../')
+#from funciones.Graficar import *
 
 #Creating the class for the analizer window
 class VentanaAnalizador(MDApp):
-    def build(self,senal, nombre, *args):
+    def __init__(self, nombre, senal, **kwargs):
         #Creating a Screen
         self.senal = senal
         self.nombre = nombre
+        super().__init__(**kwargs)
+    def build(self, *args):
 
         screen = Screen()
         self.theme_cls.primary_palette = "Gray"
@@ -36,7 +39,7 @@ class VentanaAnalizador(MDApp):
         #Creating a GridLayout
         layout = GridLayout(cols = 2,orientation='lr-tb', spacing=dp(200), padding=dp(50), row_default_height=dp(30), row_force_default=True, size_hint=(1, .9), pos_hint={'center_x': 0.5, 'center_y': 0.9})
         #Creating a text input
-        text_input = TextInput(font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, text = "Nombre", disabled = True)
+        text_input = TextInput(font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, text = self.nombre, disabled = True)
         
 
         layout.add_widget(text_input)
@@ -99,5 +102,4 @@ class VentanaAnalizador(MDApp):
 
 
 if __name__ == "__main__":
-    VentanaAnalizador().run()
-
+    VentanaAnalizador(senal="a",nombre="Olivia Carol").run()
