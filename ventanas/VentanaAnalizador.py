@@ -76,7 +76,7 @@ class VentanaAnalizador(MDApp):
         button = Button(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.eliminartendencias)
         #self.buttonEliminar = MDFlatButton(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, id = 'eliminar', on_release = self.menu.open())
         layout2.add_widget(button)
-        button = Button(text="FPB", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FPB)
+        button = Button(text="FPM", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FPB)
         layout2.add_widget(button)
         button = Button(text="Filtro FIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FIR)
         layout2.add_widget(button)
