@@ -15,10 +15,12 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
+import sys
+sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
+from funciones.funciones_todas import *
 
 
 
-#from funciones.Graficar import *
 #Creating the class for the analizer window
 class VentanaAnalizador(MDApp):
     def __init__(self, nombre, senal, fecha, **kwargs):
@@ -75,7 +77,7 @@ class VentanaAnalizador(MDApp):
         layout2.add_widget(button)
         button = Button(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.eliminartendencias)
         layout2.add_widget(button)
-        button = Button(text="FPM", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FPB)
+        button = Button(text="FPM", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FPM)
         layout2.add_widget(button)
         button = Button(text="Filtro FIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FIR)
         layout2.add_widget(button)
@@ -89,19 +91,30 @@ class VentanaAnalizador(MDApp):
         return self.screen
 
     def mostrarSenalOriginal(self, obj):
-        toast("Señal Original")
-        #GraficarOriginal(self.senal)
-        #self.image.source = 'imagenes/senal.jpg'
+        GraficarOriginalTXT(self.senal)
+        self.image.source = 'imagenes/senalGeneradaTXT.jpg'
 
 
     def mostrarEspectro(self, obj):
-        toast("Espectro")
+        Espectro (self.senal)
+        self.image.source = 'imagenes/espectro.jpg'
+
+
     def eliminartendencias(self, obj):
-        toast("Eliminar Tendencias")
-    def FPB(self, obj):
-        toast("FPB")
+        TendenciaSenoidalDETREND (self.senal)
+        self.image.source =  'imagenes/tendencia_senoidal_detrend.jpg'
+
+
+    def FPM(self, obj):
+        toast ("El filtro de orden 3 posee una atenuación de 19.1 y una SNR de 33 dB.", duration=15)
+        FPM (self.senal)
+        self.image.source = 'imagenes/FPM.jpg'
+
+
     def FIR(self, obj):
         toast("Filtro FIR")
+
+
     def IIR(self, obj):
         toast("Filtro IIR")
 
@@ -109,4 +122,4 @@ class VentanaAnalizador(MDApp):
 
 
 if __name__ == "__main__":
-    VentanaAnalizador(senal="a",nombre="Olivia Carol",fecha="a").run()
+    VentanaAnalizador(senal="/Users/paulaaguirrecarol/Desktop/PDSB 1/ECG10.txt",nombre="Olivia Carol",fecha="a").run()
