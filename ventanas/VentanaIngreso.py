@@ -15,9 +15,9 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
 import os
-import sys
-sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto-Final')
-from ventanas.VentanaAnalizador import VentanaAnalizador
+#import sys
+#sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
+from VentanaAnalizador import VentanaAnalizador
 
 #creating the class for the insert window
 class VentanaIngreso(MDApp):
@@ -195,10 +195,12 @@ class VentanaIngreso(MDApp):
     
     def guardar(self, *args):
         self.stop()
+        self.root.clear_widgets()
         nombre = self.nombre.text + " " + self.apellido.text 
         print(nombre)
         VentanaAnalizador(nombre=nombre,senal=self.senal,fecha=self.fecha).run()
         print("Guardar")
+        #self.run()
 
 
 if __name__ == '__main__':

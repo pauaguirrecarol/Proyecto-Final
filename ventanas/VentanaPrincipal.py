@@ -12,9 +12,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.image import Image
 from kivy.uix.gridlayout import GridLayout
 from kivy.metrics import dp
-import sys
-sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
-from ventanas.VentanaIngreso import VentanaIngreso
+from VentanaIngreso import VentanaIngreso
 
 
 #creating the class for the main window
@@ -59,9 +57,13 @@ class VentanaPrincipal(MDApp):
         exit()
 
     def iniciar(self,obj):
-        print("Iniciar")
+        #print("Iniciar")
         self.stop()
+        #clear the screen
+        self.root.clear_widgets()
+        print("Iniciar")
         VentanaIngreso().run()
+        print("Principal")
         self.run()
         
 
