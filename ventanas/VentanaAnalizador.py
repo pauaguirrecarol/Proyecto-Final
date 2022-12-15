@@ -10,7 +10,7 @@ from kivy.metrics import dp
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.dialog import MDDialog
-#from kivymd.uix.picker import MDDatePicker
+#from kivymd.uix.picker import MDDatePicker 
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
@@ -147,4 +147,4 @@ class VentanaAnalizador(MDApp):
 
 
 if __name__ == "__main__":
-    VentanaAnalizador(senal="a",nombre="Olivia Carol").run()
+    VentanaAnalizador(senal="a",nombre="Olivia Carol",fecha="a").run()

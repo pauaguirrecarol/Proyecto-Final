@@ -16,7 +16,7 @@ from kivymd.toast import toast
 from kivy.uix.image import Image
 import os
 import sys
-sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
+sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto-Final')
 from ventanas.VentanaAnalizador import VentanaAnalizador
 
 #creating the class for the insert window
@@ -41,7 +41,7 @@ class VentanaIngreso(MDApp):
         #Adding the label to the GridLayout
         layout.add_widget(label)
         #Creating a text input
-        self.nombre = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.nombre = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
         layout.add_widget(self.nombre)
 
@@ -50,7 +50,7 @@ class VentanaIngreso(MDApp):
         #Adding the label to the GridLayout
         layout.add_widget(label2)
         #Creating a text input
-        self.apellido = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.apellido = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
         layout.add_widget(self.apellido)
 
@@ -59,7 +59,7 @@ class VentanaIngreso(MDApp):
         #Adding the label to the GridLayout
         layout.add_widget(label3)
         #Creating a text input
-        text_input3 = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        text_input3 = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
         layout.add_widget(text_input3)
 
@@ -68,7 +68,7 @@ class VentanaIngreso(MDApp):
         #Adding the label to the GridLayout
         layout.add_widget(label4)
         #Creating a text input
-        text_input4 = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        text_input4 = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
         layout.add_widget(text_input4)
 
@@ -77,17 +77,17 @@ class VentanaIngreso(MDApp):
         #Adding the label to the GridLayout
         layout.add_widget(label5)
         #Creating a text input
-        text_input5 = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        text_input5 = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
         layout.add_widget(text_input5)
 
         #-------------------------                
         #Creating a label
-        label6 = Button(text="Seleccionar", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5},on_press=self.show_date_picker)
+        label6 = Button(text="Seleccionar fecha de ingreso", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5},on_press=self.show_date_picker)
         #Adding the label to the GridLayout
         layout.add_widget(label6)
         #Creating a text input
-        self.textofecha = TextInput(multiline=False, font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, disabled=True)
+        self.textofecha = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, disabled=True)
         #Adding the text input to the GridLayout
         layout.add_widget(self.textofecha)
         #Creating a button
@@ -103,7 +103,7 @@ class VentanaIngreso(MDApp):
         )
 
         #creating a button to open the file chooser
-        button = Button(text="Subir Archivo:", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release=self.file_manager_open)
+        button = Button(text="Subir Archivo:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release=self.file_manager_open)
         #Adding the button to the GridLayout
         layout.add_widget(button)
         #Creating a text input
@@ -112,11 +112,11 @@ class VentanaIngreso(MDApp):
         layout.add_widget(self.textosenal)
 
         #Creating a button
-        button = Button(text="Atrás", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release=self.salir)
+        button = Button(text="Atrás", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release=self.salir)
         #Adding the button to the GridLayout
         layout.add_widget(button)
         #Creating a button
-        button = Button(text="Guardar", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release=self.guardar)
+        button = Button(text="Guardar", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release=self.guardar)
         #Adding the button to the GridLayout
         layout.add_widget(button)
 
