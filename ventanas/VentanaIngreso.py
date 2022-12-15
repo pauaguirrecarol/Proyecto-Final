@@ -16,7 +16,7 @@ from kivymd.toast import toast
 from kivy.uix.image import Image
 import os
 import sys
-sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
+sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
 from ventanas.VentanaAnalizador import VentanaAnalizador
 
 #creating the class for the insert window
@@ -41,18 +41,18 @@ class VentanaIngreso(MDApp):
         #Adding the label to the GridLayout
         layout.add_widget(label)
         #Creating a text input
-        text_input = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.nombre = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
-        layout.add_widget(text_input)
+        layout.add_widget(self.nombre)
 
         #Creating a label
         label2 = Label(text="Apellido:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, color = 'black')
         #Adding the label to the GridLayout
         layout.add_widget(label2)
         #Creating a text input
-        text_input2 = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.apellido = TextInput(multiline=False, font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
-        layout.add_widget(text_input2)
+        layout.add_widget(self.apellido)
 
         #Creating a label
         label3 = Label(text="Edad:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, color = 'black')
@@ -144,7 +144,8 @@ class VentanaIngreso(MDApp):
         :param date_range: list of 'datetime.date' objects in the selected range;
         :type date_range: <class 'list'>;
         '''
-        self.textofecha.text = str(value).format("%d/%m/%Y")
+        self.fecha = str(value).format("%d/%m/%Y")
+        self.textofecha.text = self.fecha
         print(instance, value, date_range)
 
     def on_cancel(self, instance, value):
@@ -194,7 +195,9 @@ class VentanaIngreso(MDApp):
     
     def guardar(self, *args):
         self.stop()
-        VentanaAnalizador("test","test").run()
+        nombre = self.nombre.text + " " + self.apellido.text 
+        print(nombre)
+        VentanaAnalizador(nombre=nombre,senal=self.senal,fecha=self.fecha).run()
         print("Guardar")
 
 

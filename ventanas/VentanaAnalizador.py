@@ -21,10 +21,11 @@ from kivy.uix.image import Image
 #from funciones.Graficar import *
 #Creating the class for the analizer window
 class VentanaAnalizador(MDApp):
-    def __init__(self, nombre, senal, **kwargs):
+    def __init__(self, nombre, senal, fecha, **kwargs):
         #Creating a Screen
         self.senal = senal
         self.nombre = nombre
+        self.fecha = fecha
         super().__init__(**kwargs)
    
     def build(self, *args):
@@ -49,7 +50,7 @@ class VentanaAnalizador(MDApp):
         layout.add_widget(text_input)
         #Creating a text input for the date
         text_input2 = TextInput(font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
-        text_input2.text = "Fecha"
+        text_input2.text = self.fecha
         text_input2.disabled = True
 
         layout.add_widget(text_input2)
