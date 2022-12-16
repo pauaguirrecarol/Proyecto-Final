@@ -191,7 +191,7 @@ class VentanaIngreso(MDApp):
 
     def salir(self, *args):
         self.stop()
-        print("Salir")
+        print("Volver")
     
     def guardar(self, *args):
         self.stop()
@@ -200,7 +200,7 @@ class VentanaIngreso(MDApp):
         print(nombre)
         VentanaAnalizador(nombre=nombre,senal=self.senal,fecha=self.fecha).run()
         print("Guardar")
-        self.run()
+        VentanaIngreso().run()
 
 
 if __name__ == '__main__':

@@ -16,8 +16,8 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
 import sys
-sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
-#sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
+#sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
+sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
 from funciones.funciones_todas import *
 
 
@@ -86,10 +86,15 @@ class VentanaAnalizador(MDApp):
         layout2.add_widget(button)
         button = MDFillRoundFlatButton(text="Filtro IIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release = self.IIR)
         layout2.add_widget(button)
-        button = Button(text="Atrás", font_size=40, size_hint=(.10, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.volver,background_normal = "",background_color = 'black')
-        layout2.add_widget(button)
+        
+        layout3 = GridLayout(cols = 2,orientation='lr-tb', spacing=dp(10), padding=dp(20), row_default_height=dp(40), row_force_default=True, size_hint=(1, .5))
+        button = Button(text="Atrás", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.volver,background_normal = "",background_color = 'black')
+        layout3.add_widget(button)
+        button = Button(text="Salir", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.salir,background_normal = "",background_color = 'black')
+        layout3.add_widget(button)
 
         box.add_widget(layout2)
+        box.add_widget(layout3)
         self.screen.add_widget(box)
 
 
@@ -128,6 +133,8 @@ class VentanaAnalizador(MDApp):
     def volver(self,obj):
         self.stop()
 
+    def salir(self,obj):
+        exit()
 
 
 
