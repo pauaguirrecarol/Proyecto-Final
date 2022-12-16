@@ -7,7 +7,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.metrics import dp
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFillRoundFlatButton
 from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.dialog import MDDialog
 #from kivymd.uix.picker import MDDatePicker 
@@ -16,7 +16,8 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
 import sys
-sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
+#sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
+sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
 from funciones.funciones_todas import *
 
 
@@ -41,12 +42,12 @@ class VentanaAnalizador(MDApp):
         #Creating BoxLayout
         box = BoxLayout(orientation='vertical')
         #Creating Title Label
-        title = Label(text="Procesamiento de la señal", font_size=120, pos_hint={'center_x': 0.5, 'center_y': 0.99}, color = 'black', bold = True)
+        title = Label(text="Procesamiento de la señal", font_size=120, pos_hint={'center_x': 0.5, 'center_y': 0.99}, color = 'black', bold = True, size_hint=(1, .5))
         box.add_widget(title)
 
 
         #Creating a GridLayout
-        layout = GridLayout(cols = 2,orientation='lr-tb', spacing=dp(200), padding=dp(50), row_default_height=dp(30), row_force_default=True, size_hint=(1, .9), pos_hint={'center_x': 0.5, 'center_y': 0.9})
+        layout = GridLayout(cols = 2,orientation='lr-tb', spacing=dp(200), padding=dp(50), row_default_height=dp(30), row_force_default=True, size_hint=(1, .5), pos_hint={'center_x': 0.5, 'center_y': 0.9})
         #Creating a text input
         text_input = TextInput(font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, text = self.nombre, disabled = True)
         
@@ -73,17 +74,19 @@ class VentanaAnalizador(MDApp):
         #adding a second grid layout
         layout2 = GridLayout(cols = 3,orientation='lr-tb', spacing=dp(10), padding=dp(20), row_default_height=dp(40), row_force_default=True)
         #Creating buttons
-        button = Button(text="Señal Original", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.mostrarSenalOriginal)
+        button = MDFillRoundFlatButton(text="Señal Original", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release = self.mostrarSenalOriginal)
         layout2.add_widget(button)
-        button = Button(text="Espectro", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.mostrarEspectro)
+        button = MDFillRoundFlatButton(text="Espectro", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release = self.mostrarEspectro)
         layout2.add_widget(button)
-        button = Button(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.eliminartendencias)
+        button = MDFillRoundFlatButton(text="Eliminar Tendencias", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release = self.eliminartendencias)
         layout2.add_widget(button)
-        button = Button(text="FPM", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FPM)
+        button = MDFillRoundFlatButton(text="FPM", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release = self.FPM)
         layout2.add_widget(button)
-        button = Button(text="Filtro FIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.FIR)
+        button = MDFillRoundFlatButton(text="Filtro FIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release = self.FIR)
         layout2.add_widget(button)
-        button = Button(text="Filtro IIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.IIR)
+        button = MDFillRoundFlatButton(text="Filtro IIR", font_size=40, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release = self.IIR)
+        layout2.add_widget(button)
+        button = Button(text="Atrás", font_size=40, size_hint=(.10, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, on_release = self.volver,background_normal = "",background_color = 'black')
         layout2.add_widget(button)
 
         box.add_widget(layout2)
@@ -108,8 +111,8 @@ class VentanaAnalizador(MDApp):
 
 
     def FPM(self, obj):
-        toast ("El filtro de orden ... posee una atenuación de ... y una SNR de ... dB.", duration=15)
-        FPM (self.senal)
+        MejorFPM, MejorAten, MejorSNR = FPM (self.senal)
+        toast (f"El filtro de orden {MejorFPM} posee una atenuación de {MejorAten} y una SNR de {MejorSNR} dB.", duration=15)
         self.image.source = 'imagenes/FPM.jpg'
 
 
@@ -121,6 +124,9 @@ class VentanaAnalizador(MDApp):
     def IIR(self, obj):
         IIR (self.senal)
         self.image.source = 'imagenes/IIR.jpg'
+    
+    def volver(self,obj):
+        self.stop()
 
 
 

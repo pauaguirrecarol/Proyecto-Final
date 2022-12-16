@@ -183,8 +183,11 @@ def FPM(nombreArchivo):
     plt.plot(t*Fs, señal_sin_tendencia,color="y")
     plt.plot(t*Fs, resp[:,Mejor_FPM],color="k")
     plt.title (( 'FPM de orden = ', M[Mejor_FPM] ))
+    Mejor_Aten = Atenuac[Mejor_FPM]
+    Mejor_SNR = SNR_dB[Mejor_FPM]
     plt.grid (True)
     plt.savefig('imagenes/FPM.jpg', dpi=600, bbox_inches='tight')
+    return M[Mejor_FPM], Mejor_Aten, Mejor_SNR
     #plt.show()
 
 
