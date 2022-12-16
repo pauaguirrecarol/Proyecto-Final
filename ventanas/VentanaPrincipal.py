@@ -37,10 +37,10 @@ class VentanaPrincipal(MDApp):
         box.add_widget(image)
         layout = GridLayout(cols = 2,orientation='lr-tb', spacing=dp(50), padding=dp(10), row_default_height=dp(50), row_force_default=True)
         #Creating a button
-        button = Button(text="Iniciar", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, background_normal = "",background_color = 'blue',on_press=self.iniciar)
+        button = Button(text="Iniciar", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, background_normal = "",background_color = 'black',on_press=self.iniciar)
         #Adding the button to the GridLayout
         #Creating a button
-        button2 = Button(text="Salir", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5},background_normal = "",background_color = 'blue', on_press=self.salir)
+        button2 = Button(text="Salir", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5},background_normal = "",background_color = 'black', on_press=self.salir)
         #Adding the button to the GridLayout
         layout.add_widget(button2)
         layout.add_widget(button)
@@ -50,7 +50,7 @@ class VentanaPrincipal(MDApp):
 
 
 
-        return screen
+        return screen 
 
 
     def salir(self,obj):

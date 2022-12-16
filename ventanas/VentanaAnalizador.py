@@ -43,15 +43,17 @@ class VentanaAnalizador(MDApp):
         #Creating Title Label
         title = Label(text="Procesamiento de la señal", font_size=120, pos_hint={'center_x': 0.5, 'center_y': 0.99}, color = 'black', bold = True)
         box.add_widget(title)
+
+
         #Creating a GridLayout
         layout = GridLayout(cols = 2,orientation='lr-tb', spacing=dp(200), padding=dp(50), row_default_height=dp(30), row_force_default=True, size_hint=(1, .9), pos_hint={'center_x': 0.5, 'center_y': 0.9})
         #Creating a text input
-        text_input = TextInput(font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, text = self.nombre, disabled = True)
+        text_input = TextInput(font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, text = self.nombre, disabled = True)
         
 
         layout.add_widget(text_input)
         #Creating a text input for the date
-        text_input2 = TextInput(font_size=30, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        text_input2 = TextInput(font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         text_input2.text = self.fecha
         text_input2.disabled = True
 
@@ -59,12 +61,12 @@ class VentanaAnalizador(MDApp):
 
         box.add_widget(layout)
         #Creatin a secondary titlte
-        title2 = Label(text="Señal", font_size=70, pos_hint={'center_x': 0.5, 'center_y': 0.99}, color = 'black',bold = True)
+        title2 = Label(text="Señal", font_size=80, pos_hint={'center_x': 0.5, 'center_y': 1.2}, color = 'black',bold = True)
         box.add_widget(title2)
         #Creating an image box
         image_box = BoxLayout(orientation='vertical', size_hint=(dp(1), dp(1)), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Creating an image
-        self.image = Image(source='imagenes/senal.jpg', pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.image = Image(source='imagenes/senal en blanco.png', pos_hint={'center_x': 0.5, 'center_y': 0.5})
         image_box.add_widget(self.image)
         box.add_widget(image_box)
 
@@ -91,8 +93,8 @@ class VentanaAnalizador(MDApp):
         return self.screen
 
     def mostrarSenalOriginal(self, obj):
-        GraficarOriginalTXT(self.senal)
-        self.image.source = 'imagenes/senalGeneradaTXT.jpg'
+        GraficarOriginalACQ (self.senal)
+        self.image.source = 'imagenes/senalGeneradaACQ.jpg'
 
 
     def mostrarEspectro(self, obj):
@@ -106,20 +108,22 @@ class VentanaAnalizador(MDApp):
 
 
     def FPM(self, obj):
-        toast ("El filtro de orden 3 posee una atenuación de 19.1 y una SNR de 33 dB.", duration=15)
+        toast ("El filtro de orden ... posee una atenuación de ... y una SNR de ... dB.", duration=15)
         FPM (self.senal)
         self.image.source = 'imagenes/FPM.jpg'
 
 
     def FIR(self, obj):
-        toast("Filtro FIR")
+        FIR (self.senal)
+        self.image.source = 'imagenes/FIR.jpg'
 
 
     def IIR(self, obj):
-        toast("Filtro IIR")
+        IIR (self.senal)
+        self.image.source = 'imagenes/IIR.jpg'
 
 
 
 
 if __name__ == "__main__":
-    VentanaAnalizador(senal="/Users/paulaaguirrecarol/Desktop/PDSB 1/ECG10.txt",nombre="Olivia Carol",fecha="a").run()
+    VentanaAnalizador(senal="/Users/paulaaguirrecarol/DesktopCopia de 2. ecg_sinf.acq",nombre="Olivia Carol",fecha="a").run()

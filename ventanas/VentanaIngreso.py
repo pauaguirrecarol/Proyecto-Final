@@ -83,7 +83,7 @@ class VentanaIngreso(MDApp):
 
         #-------------------------                
         #Creating a label
-        label6 = MDFillRoundFlatButton(text="Seleccionar fecha de ingreso", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5},md_bg_color = 'orange', on_press=self.show_date_picker)
+        label6 = MDFillRoundFlatButton(text="Seleccionar fecha de ingreso", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5},md_bg_color = 'gray', on_press=self.show_date_picker)
         #Adding the label to the GridLayout
         layout.add_widget(label6)
         #Creating a text input
@@ -103,7 +103,7 @@ class VentanaIngreso(MDApp):
         )
 
         #creating a button to open the file chooser
-        button = MDFillRoundFlatButton(text="Subir Archivo:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'orange',on_release=self.file_manager_open)
+        button = MDFillRoundFlatButton(text="Subir Archivo:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release=self.file_manager_open)
         #Adding the button to the GridLayout
         layout.add_widget(button)
         #Creating a text input
@@ -112,11 +112,11 @@ class VentanaIngreso(MDApp):
         layout.add_widget(self.textosenal)
 
         #Creating a button
-        button = Button(text="Atrás", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, background_normal = "",background_color = 'blue',on_release=self.salir)
+        button = Button(text="Atrás", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, background_normal = "",background_color = 'black',on_release=self.salir)
         #Adding the button to the GridLayout
         layout.add_widget(button)
         #Creating a button
-        button = Button(text="Guardar", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, background_normal = "",background_color = 'blue',on_release=self.guardar)
+        button = Button(text="Guardar", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, background_normal = "",background_color = 'black',on_release=self.guardar)
         #Adding the button to the GridLayout
         layout.add_widget(button)
 
