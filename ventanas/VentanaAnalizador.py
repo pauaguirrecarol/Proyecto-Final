@@ -16,8 +16,8 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivy.uix.image import Image
 import sys
-#sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
-sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
+sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
+#sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
 from funciones.funciones_todas import *
 
 
