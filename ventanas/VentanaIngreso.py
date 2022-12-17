@@ -18,6 +18,7 @@ import os
 #import sys
 #sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
 from VentanaAnalizador import VentanaAnalizador
+from funciones.conector import guardar_datos
 
 #creating the class for the insert window
 class VentanaIngreso(MDApp):
@@ -59,27 +60,27 @@ class VentanaIngreso(MDApp):
         #Adding the label to the GridLayout
         layout.add_widget(label3)
         #Creating a text input
-        text_input3 = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.edad = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
-        layout.add_widget(text_input3)
+        layout.add_widget(self.edad)
 
         #Creating a label
         label4 = Label(text="Sexo:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, color = 'black')
         #Adding the label to the GridLayout
         layout.add_widget(label4)
         #Creating a text input
-        text_input4 = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.sexo = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
-        layout.add_widget(text_input4)
+        layout.add_widget(self.sexo)
 
         #Creating a label
         label5 = Label(text="Diagnóstico:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, color = 'black')
         #Adding the label to the GridLayout
         layout.add_widget(label5)
         #Creating a text input
-        text_input5 = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.diagnostico = TextInput(multiline=False, font_size=65, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         #Adding the text input to the GridLayout
-        layout.add_widget(text_input5)
+        layout.add_widget(self.diagnostico)
 
         #-------------------------                
         #Creating a label
@@ -197,10 +198,18 @@ class VentanaIngreso(MDApp):
         if self.nombre.text == "" or self.apellido.text == "" or self.textosenal.text == "" or self.textofecha.text == "":
             toast("Faltan datos")
             return
+        testedad = self.edad.text
+        if testedad.isnumeric() == False:
+            toast("La edad debe ser un numero")
+            return
         self.stop()
         self.root.clear_widgets()
         nombre = self.nombre.text + " " + self.apellido.text 
-        print(nombre)
+
+        #Llamo a la funcion para guardar los datos en la DB
+        guardar_datos(self.nombre.text,self.apellido.text,int(self.edad.text),self.sexo.text,self.textofecha.text,self.diagnostico.text ,self.textosenal.text)
+
+
         VentanaAnalizador(nombre=nombre,senal=self.senal,fecha=self.fecha).run()
         print("Guardar")
         VentanaIngreso().run()
