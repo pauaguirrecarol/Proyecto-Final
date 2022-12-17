@@ -81,6 +81,7 @@ def GraficarOriginalACQ (nombreArchivo):
 
     señal = ECG.channels[0].data
     Fs = ECG.channels[0].samples_per_second
+    N = len(señal)
 
     # Graficar la señal original
     plt.figure (figsize=(20,4))
@@ -91,6 +92,16 @@ def GraficarOriginalACQ (nombreArchivo):
     plt.grid ()
     plt.savefig('imagenes/senalGeneradaACQ.jpg', dpi=600, bbox_inches='tight')
     #plt.show ()
+
+    A3 = np.arange(0,N,250) #arreglo
+    B3 = tuple(A3) #tupla
+    señal_sin_tendencia = signal.detrend(señal,bp=A3)
+
+    peaks_max = find_peaks (señal_sin_tendencia,distance=500)[0]
+
+    FrecCardiaca = len (peaks_max) * 3
+
+    return FrecCardiaca
 
 
 
@@ -118,7 +129,7 @@ def Espectro(nombreArchivo):
 
 
 
-def FPM(nombreArchivo):
+def FPM (nombreArchivo):
     # Leer el archivo de datos
     ECG = bioread.read_file (nombreArchivo)
     t = ECG.time_index.T
@@ -126,7 +137,9 @@ def FPM(nombreArchivo):
     señal = ECG.channels[0].data
     Fs = ECG.channels[0].samples_per_second
     N = len(señal)
-    
+    n = np.arange (N)
+
+
 
     # Elimino tendencia -----------------------------------------------------------------------------
     A3 = np.arange(0,N,250) #arreglo
@@ -135,7 +148,8 @@ def FPM(nombreArchivo):
     #------------------------------------------------------------------------------------------------
 
 
-    M = np.arange (5,25,5) #vector de ordenes de los FPM
+
+    M = np.arange (2,6,1) #vector de ordenes de los FPM
     k = np.arange (0,30,dtype=np.float64)
 
     resp = np.empty ((N,len(M)))
@@ -147,7 +161,7 @@ def FPM(nombreArchivo):
 
     peaks_max = find_peaks (señal_sin_tendencia,distance=500)[0]
     peaks_min = find_peaks (-señal_sin_tendencia,distance=500)[0]
-        
+
     A_max_signal = np.mean (señal_sin_tendencia[peaks_max])
     A_min_signal = np.mean (señal_sin_tendencia[peaks_min])
 
@@ -173,22 +187,24 @@ def FPM(nombreArchivo):
     A_noise = max_noise - min_noise
     SNR = A_signal_filtr / A_noise
     SNR_dB = 20*np.log (A_signal_filtr/A_noise)
-        
+
     for i in range (len(M)):
         if (Atenuac[i] < 20)&(SNR_dB[i] == max(SNR_dB)):
             print (f"El filtro de orden {M[i]} posee una atenuación de {Atenuac[i]} y una SNR de {SNR_dB[i]} dB.")
             Mejor_FPM = i
 
-    plt.figure(figsize=(20,4))
-    plt.plot(t*Fs, señal_sin_tendencia,color="y")
-    plt.plot(t*Fs, resp[:,Mejor_FPM],color="k")
+    plt.figure(figsize=(20,4),dpi=600)
     plt.title (( 'FPM de orden = ', M[Mejor_FPM] ))
+    plt.plot(n, señal_sin_tendencia,color="y")
+    plt.plot(n, resp[:,Mejor_FPM],color="k")
     Mejor_Aten = Atenuac[Mejor_FPM]
     Mejor_SNR = SNR_dB[Mejor_FPM]
     plt.grid (True)
+    plt.legend (["Señal","FPM"])
     plt.savefig('imagenes/FPM.jpg', dpi=600, bbox_inches='tight')
+
     return M[Mejor_FPM], Mejor_Aten, Mejor_SNR
-    #plt.show()
+    #plot.show()
 
 
 
@@ -334,12 +350,14 @@ def FIR(nombreArchivo):
     plt.plot(t, MEJOR_SEÑAL_data[2], 'y')
     plt.legend(('señal original',('Filtrado con ',MEJOR_SEÑAL_data[0],'orden',MEJOR_SEÑAL_data[1],'')))
     plt.xlabel('t [seg]', fontsize=12)
+    MejorSNR = MEJOR_SEÑAL_SNR[3]
+    MejorA = MEJOR_SEÑAL_SNR[4]
     plt.grid (True)
     plt.savefig('imagenes/FIR.jpg', dpi=600, bbox_inches='tight')
     #plt.show()
     
-    #print('SNR:', MEJOR_SEÑAL_SNR[3],'dB')
-    #print('Atenuacion:', MEJOR_SEÑAL_SNR[4],'%')
+    return MejorSNR, MejorA
+
 
 
 
@@ -478,9 +496,10 @@ def IIR(nombreArchivo):
             #plt.show()
 
 
-            print("ATENUACION:",Atenuac)
-            print('SNR:',SNR)
-            print('SNR(dB):',SNR_dB)
+            MejorA = Atenuac
+            MejorSNR= SNR
+            MejorSNRdB = SNR_dB
+
             
         else:
             #...Gráfico de señal      
@@ -490,4 +509,26 @@ def IIR(nombreArchivo):
             condicion = 1      
     print('Filtrado finalizado')
         
+
+    return MejorA, MejorSNR, MejorSNRdB
         
+
+
+def FrecuenciaCardiaca (nombreArchivo):
+    ECG = bioread.read_file (nombreArchivo)
+    t = ECG.time_index.T
+
+    señal = ECG.channels[0].data
+    Fs = ECG.channels[0].samples_per_second
+    N = len(señal)
+    n = t*Fs
+
+    A3 = np.arange(0,N,250) #arreglo
+    B3 = tuple(A3) #tupla
+    señal_sin_tendencia = signal.detrend(señal,bp=A3)
+
+    peaks_max = find_peaks (señal_sin_tendencia,distance=500)[0]
+
+    FrecCardiaca = len (peaks_max) * 3
+
+    return FrecCardiaca

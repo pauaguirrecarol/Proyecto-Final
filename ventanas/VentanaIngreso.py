@@ -194,6 +194,9 @@ class VentanaIngreso(MDApp):
         print("Volver")
     
     def guardar(self, *args):
+        if self.nombre.text == "" or self.apellido.text == "" or self.textosenal.text == "" or self.textofecha.text == "":
+            toast("Faltan datos")
+            return
         self.stop()
         self.root.clear_widgets()
         nombre = self.nombre.text + " " + self.apellido.text 
