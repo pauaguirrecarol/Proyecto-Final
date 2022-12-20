@@ -97,7 +97,9 @@ def GraficarOriginalACQ (nombreArchivo):
     B3 = tuple(A3) #tupla
     señal_sin_tendencia = signal.detrend(señal,bp=A3)
 
-    peaks_max = find_peaks (señal_sin_tendencia,distance=500)[0]
+    A = np.where(señal[0:int(Fs)]==max(señal[0:int(Fs)]))[0][0]
+
+    peaks_max = find_peaks (señal_sin_tendencia,distance=A)[0]
 
     FrecCardiaca = len (peaks_max) * 3
 
@@ -126,6 +128,7 @@ def Espectro(nombreArchivo):
     plt.grid()
     plt.savefig('imagenes/espectro.jpg', dpi=600, bbox_inches='tight')
     #plt.show()
+
 
 
 
@@ -160,8 +163,10 @@ def FPM (nombreArchivo):
         resp[:,i] = np.convolve (señal_sin_tendencia,FPM,"same")
 
 
-    peaks_max = find_peaks (señal_sin_tendencia,distance=500)[0]
-    peaks_min = find_peaks (-señal_sin_tendencia,distance=500)[0]
+    A = np.where(señal[0:int(Fs)]==max(señal[0:int(Fs)]))[0][0]
+
+    peaks_max = find_peaks (señal_sin_tendencia,distance=A)[0]
+    peaks_min = find_peaks (-señal_sin_tendencia,distance=A)[0]
 
     A_max_signal = np.mean (señal_sin_tendencia[peaks_max])
     A_min_signal = np.mean (señal_sin_tendencia[peaks_min])
@@ -170,8 +175,10 @@ def FPM (nombreArchivo):
     aux_min = np.zeros ((len(M),len(peaks_min))) 
 
     for i in range  (len(M)):
-        peaks2_max = find_peaks (resp[:,i],distance=500)[0]
-        peaks2_min = find_peaks (-resp[:,i],distance=500)[0]
+        peaks2_max = find_peaks (resp[:,i],distance=A)[0]
+        peaks2_min = find_peaks (-resp[:,i],distance=A)[0]
+        if len(peaks2_min)!= len(peaks_min):
+            peaks2_min = peaks2_min[0:len(peaks_min)]
         aux_max [i,:] = resp [peaks2_max,i]
         aux_min [i,:] = resp [peaks2_min,i]
     A_max = np.mean (aux_max,axis=1) ; A_min = np.mean (aux_min,axis=1)
@@ -317,13 +324,15 @@ def FIR(nombreArchivo):
         señal_filtrada=señal_filtrada[m:len(señal_filtrada)-1]
             
 #............................Analisis de atenuacion.............................................
-        peaks_max_signal = find_peaks(señal,distance=500)[0]
-        peaks_min_signal = find_peaks(-señal,distance=500)[0]
+        A = np.where(señal[0:int(Fs)]==max(señal[0:int(Fs)]))[0][0]
+        
+        peaks_max_signal = find_peaks(señal,distance=A)[0]
+        peaks_min_signal = find_peaks(-señal,distance=A)[0]
         A_max_signal = np.mean(señal[peaks_max_signal])
         A_min_signal = np.mean(señal[peaks_min_signal])
 
-        peaks_max = find_peaks (señal_filtrada,distance=500)[0]
-        peaks_min = find_peaks (-señal_filtrada,distance=500)[0]
+        peaks_max = find_peaks (señal_filtrada,distance=A)[0]
+        peaks_min = find_peaks (-señal_filtrada,distance=A)[0]
         A_max = np.mean(señal_filtrada[peaks_max])
         A_min = np.mean(señal_filtrada[peaks_min])
 
@@ -449,25 +458,30 @@ def IIR(nombreArchivo):
  
 #..................................Analisis de atenuacion................................
 
-    peaks_max_signal = find_peaks(señal,distance=500)[0]
-    peaks_min_signal = find_peaks(-señal,distance=500)[0]
-    A_max_signal = señal[peaks_max_signal]
-    A_min_signal = señal[peaks_min_signal]
+    A = np.where(señal[0:int(Fs)]==max(señal[0:int(Fs)]))[0][0]
 
-    peaks_max = find_peaks (señal_filtrada[:,1],distance=500)[0]
-    peaks_min = find_peaks (-señal_filtrada[:,1],distance=500)[0]
-    A_max = señal_filtrada[:,1][peaks_max]
-    A_min = señal_filtrada[:,1][peaks_min]
+    peaks_max_signal = find_peaks(señal,distance=A)[0]
+    peaks_min_signal = find_peaks(-señal,distance=A)[0]
+
+    A_max_signal = np.mean (señal[peaks_max_signal])
+    A_min_signal = np.mean (señal[peaks_min_signal])
+
+    peaks_max = find_peaks (señal_filtrada[:,1],distance=A)[0]
+    peaks_min = find_peaks (-señal_filtrada[:,1],distance=A)[0]
+    A_max = np.mean (señal_filtrada[:,1][peaks_max])
+    A_min = np.mean (señal_filtrada[:,1][peaks_min])
     
     A_signal = A_max_signal - A_min_signal
     A_signal_filtr = A_max - A_min
     
     
-    Atenuac = np.arange(len(peaks_max_signal))
-    for i in range(len(peaks_max_signal)):
-        Atenuac[i] = np.round((A_signal[i]-A_signal_filtr[i])*100/A_signal[i],1)
+    #Atenuac = np.arange(len(peaks_max_signal))
+    #for i in range(len(peaks_max_signal)):
+    #    Atenuac[i] = np.round((A_signal[i]-A_signal_filtr[i])*100/A_signal[i],1)
 
-    Atenuacion = np.mean(Atenuac)
+    #Atenuacion = np.mean(Atenuac)
+
+    Atenuacion = np.round((A_signal-A_signal_filtr)*100/A_signal,1)
 
 #.......... SNR...............
 
@@ -475,10 +489,8 @@ def IIR(nombreArchivo):
     min_noise = min(señal_filtrada[:,1][800:1000])
 
     A_noise = max_noise - min_noise
-    SNR = np.mean(A_signal_filtr) / A_noise
+    SNR = A_signal_filtr / A_noise
     SNR_dB = 20*np.log10(SNR)
-    
-
       
     condicion = 1        
     
@@ -500,26 +512,29 @@ def IIR(nombreArchivo):
 
 #..............................Analisis de atenuacion...................................
     
-        peaks_max = find_peaks(señal_filtrada_c[:,1],distance=500)[0]
-        peaks_min = find_peaks(-señal_filtrada_c[:,1],distance=500)[0]
+
+        peaks_max = find_peaks(señal_filtrada_c[:,1],distance=A)[0]
+        peaks_min = find_peaks(-señal_filtrada_c[:,1],distance=A)[0]
         
-        A_max = señal_filtrada_c[:,1][peaks_max]
-        A_min = señal_filtrada_c[:,1][peaks_min]
+        A_max = np.mean (señal_filtrada_c[:,1][peaks_max])
+        A_min = np.mean (señal_filtrada_c[:,1][peaks_min])
         
         A_signal_filtr = A_max - A_min
 
-        Atenuac = np.arange(len(peaks_max_signal))
-        for i in range(len(peaks_max_signal)):
-            Atenuac[i] = np.round((A_signal[i]-A_signal_filtr[i])*100/A_signal[i],1)
+        #Atenuac = np.arange(len(peaks_max_signal))
+        #for i in range(len(peaks_max_signal)):
+        #    Atenuac[i] = np.round((A_signal[i]-A_signal_filtr[i])*100/A_signal[i],1)
 
-        Atenuacion_c = np.mean(Atenuac)
+        #Atenuacion_c = np.mean(Atenuac)
+
+        Atenuacion_c = np.round((A_signal-A_signal_filtr)*100/A_signal,1)
 
 #......................................SNR....................................................
         max_noise = max(señal_filtrada_c[:,1][400:600]) #ruido uniforme en toda la señal
         min_noise = min(señal_filtrada_c[:,1][400:600])
 
         A_noise = max_noise - min_noise
-        SNR_c = np.mean(A_signal_filtr) / A_noise
+        SNR_c = A_signal_filtr / A_noise
         SNR_dB_c = 20*np.log10(SNR_c)
        
         
@@ -564,7 +579,9 @@ def FrecuenciaCardiaca (nombreArchivo):
     B3 = tuple(A3) #tupla
     señal_sin_tendencia = signal.detrend(señal,bp=A3)
 
-    peaks_max = find_peaks (señal_sin_tendencia,distance=500)[0]
+    A = np.where(señal[0:int(Fs)]==max(señal[0:int(Fs)]))[0][0]
+
+    peaks_max = find_peaks (señal_sin_tendencia,distance=A)[0]
 
     FrecCardiaca = len (peaks_max) * 3
 

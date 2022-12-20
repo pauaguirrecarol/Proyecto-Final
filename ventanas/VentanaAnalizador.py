@@ -138,7 +138,3 @@ class VentanaAnalizador(MDApp):
     def salir(self,obj):
         exit()
 
-
-
-if __name__ == "__main__":
-    VentanaAnalizador(senal="/Users/paulaaguirrecarol/DesktopCopia de 2. ecg_sinf.acq",nombre="Olivia Carol",fecha="a").run()
