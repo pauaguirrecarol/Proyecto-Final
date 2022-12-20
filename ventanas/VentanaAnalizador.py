@@ -17,7 +17,6 @@ from kivymd.toast import toast
 from kivy.uix.image import Image
 import sys
 sys.path.insert(1,'/Users/paulaaguirrecarol/Desktop/Proyecto Final')
-#sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
 from funciones.funciones_todas import *
 
 
@@ -118,19 +117,19 @@ class VentanaAnalizador(MDApp):
 
     def FPM(self, obj):
         MejorFPM, MejorAten, MejorSNR = FPM (self.senal)
-        toast (f"El filtro de orden {MejorFPM} posee una atenuación de {abs(MejorAten)} % y una SNR de {round (MejorSNR,3)} dB.", duration=15)
+        toast (f"El filtro de orden {MejorFPM} posee una atenuación de {MejorAten} % y una SNR de {round (MejorSNR,3)} dB.", duration=15)
         self.image.source = 'imagenes/FPM.jpg'
 
 
     def FIR(self, obj):
-        MejorA, MejorSNR = FIR (self.senal)
-        toast (f"El filtro posee una atenuación de {abs(MejorSNR)} % y una SNR de {round(MejorA,3)} dB.", duration=15)
+        MejorAt, MejorSNR = FIR (self.senal)
+        toast (f"El filtro posee una atenuación de {MejorSNR} % y una SNR de {round(MejorAt,3)} dB.", duration=15)
         self.image.source = 'imagenes/FIR.jpg'
 
 
     def IIR(self, obj):
         MejorA, MejorSNR, MejorSNRdB = IIR (self.senal)
-        toast (f"El filtro posee una atenuación de {abs(MejorA)} % y una SNR de {round (MejorSNRdB,3)} dB.", duration=15)
+        toast (f"El filtro posee una atenuación de {MejorA} % y una SNR de {round (MejorSNRdB,3)} dB.", duration=15)
         self.image.source = 'imagenes/IIR.jpg'
     
     def volver(self,obj):

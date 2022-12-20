@@ -16,7 +16,6 @@ from kivymd.toast import toast
 from kivy.uix.image import Image
 import os
 #import sys
-#sys.path.insert(1,'/Users/mateo/Desktop/Proyecto-Final')
 from VentanaAnalizador import VentanaAnalizador
 from funciones.conector import guardar_datos
 
@@ -104,7 +103,7 @@ class VentanaIngreso(MDApp):
         )
 
         #creating a button to open the file chooser
-        button = MDFillRoundFlatButton(text="Subir Archivo:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray',on_release=self.file_manager_open)
+        button = MDFillRoundFlatButton(text="Subir Archivo:", font_size=50, size_hint=(.2, .2), pos_hint={'center_x': 0.5, 'center_y': 0.5}, md_bg_color = 'gray', on_release=self.file_manager_open)
         #Adding the button to the GridLayout
         layout.add_widget(button)
         #Creating a text input
